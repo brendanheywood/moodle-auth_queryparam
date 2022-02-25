@@ -7,8 +7,10 @@ normal production use.
 
 To login, simply append the username and password as url params to any normal url:
 
-http://moodle.local/course/view.php?id=2&autologinas=admin&password=admin
+http://moodle.local/course/view.php?id=2&autologinas=test&password=password
 
 If the user exists and isn't already logged in and is of type 'queryparm' then
 they should be logged in and continue on their merry way.
+
+Additionally there is an admin setting for restricting this to certain IP ranges.
 
