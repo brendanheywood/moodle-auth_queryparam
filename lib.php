@@ -22,8 +22,10 @@
  */
 
 function auth_queryparam_after_config() {
-
     global $DB;
+    if (!is_enabled_auth('queryparam')) {
+        return;
+    }
 
     // If we are not logged in?
     if (isloggedin() && !isguestuser()) {

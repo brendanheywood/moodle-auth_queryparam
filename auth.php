@@ -44,4 +44,28 @@ class auth_plugin_queryparam extends auth_plugin_base {
         $this->config = (object) array_merge($this->defaults, (array) get_config('auth_queryparam') );
     }
 
+    /**
+     * Confirm the new user as registered.
+     *
+     * @param string $username
+     * @param string $confirmsecret
+     */
+    public function user_confirm($username, $confirmsecret) {
+        global $DB;
+        $user = get_complete_user_data('username', $username);
+
+        if (!empty($user)) {
+            if ($user->auth != $this->authtype) {
+                return AUTH_CONFIRM_ERROR;
+
+            } else if ($user->secret === $confirmsecret && $user->confirmed) {
+                return AUTH_CONFIRM_ALREADY;
+
+            } else if ($user->secret === $confirmsecret) { // They have provided the secret key to get in.
+                $DB->set_field('user', 'confirmed', 1, ['id' => $user->id]);
+                return AUTH_CONFIRM_OK;
+            }
+        }
+    }
+
 }
