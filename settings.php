@@ -32,7 +32,5 @@ if ($ADMIN->fulltree) {
                 new lang_string('allowedipstitle', 'auth_queryparam'),
                 (new lang_string('allowedipsdescription', 'auth_queryparam')),
                 ''));
-
 }
-$settings = null;
 

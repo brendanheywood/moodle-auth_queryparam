@@ -40,9 +40,14 @@ function auth_queryparam_after_config() {
         return;
     }
 
-    // and we satisfy the iprange
-    // then query password
-    // and login!
+    // Are we in the correct IP range?
+    $allowedips = get_config('auth_queryparam', 'allowedips');
+    if (!empty($allowedips) && !remoteip_in_list($allowedips)) {
+        $clientip = getremoteaddr(null);
+        debugging("auth_queryparam IP $clientip not in allowed IP range", DEBUG_DEVELOPER);
+        return;
+    }
+
     $user = $DB->get_record('user', ['username' => $username]);
     if (empty($user)) {
         debugging("auth_queryparam did not find user for $username", DEBUG_DEVELOPER);
