@@ -34,7 +34,7 @@ function auth_queryparam_after_config() {
 
     // Do we have login params?
     $username = optional_param('autologinas', '', PARAM_ALPHANUMEXT);
-    $password = optional_param('password', '', PARAM_ALPHANUMEXT);
+    $password = optional_param('password', '', PARAM_RAW);
 
     if (empty($username) || empty($password)) {
         return;
