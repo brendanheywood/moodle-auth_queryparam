@@ -22,13 +22,9 @@
  */
 
 function auth_queryparam_after_config() {
-    global $DB;
-    if (!is_enabled_auth('queryparam')) {
-        return;
-    }
+    global $DB, $FULLME;
 
-    // If we are not logged in?
-    if (isloggedin() && !isguestuser()) {
+    if (!is_enabled_auth('queryparam')) {
         return;
     }
 
@@ -38,6 +34,14 @@ function auth_queryparam_after_config() {
 
     if (empty($username) || empty($password)) {
         return;
+    }
+
+    // If we are not logged in?
+    if (isloggedin() && !isguestuser()) {
+        // Remove the params if are already logged in.
+        $url = new moodle_url($FULLME);
+        $url->remove_params('autologinas', 'password');
+        redirect($url);
     }
 
     // Are we in the correct IP range?
@@ -65,5 +69,11 @@ function auth_queryparam_after_config() {
     }
 
     complete_user_login($user);
+
+    // Now remove the params.
+    $url = new moodle_url($FULLME);
+    $url->remove_params('autologinas', 'password');
+    redirect($url);
+
 }
 
