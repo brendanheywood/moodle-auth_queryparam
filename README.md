@@ -14,3 +14,7 @@ they should be logged in and continue on their merry way.
 
 Additionally there is an admin setting for restricting this to certain IP ranges.
 
+## Why would you want this?
+
+The use case for this plugin was loggin into moodle to do an entrance exam on
+provided devices in a very controlled space using a QR code with embedded credentials.
