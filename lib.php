@@ -58,6 +58,11 @@ function auth_queryparam_after_config() {
         return;
     }
 
+    if ($user->suspended == 1) {
+        debugging("auth_queryparam user $username is suspended", DEBUG_DEVELOPER);
+        return;
+    }
+
     if ($user->auth !== 'queryparam') {
         debugging("auth_queryparam user $username is not type 'queryparam'", DEBUG_DEVELOPER);
         return;
